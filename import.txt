@@ -30,3 +30,6 @@ WITH toInteger(row.Id_A) as IDa, toInteger(row.Id_B) as IDb, ind
 WHERE ind1.Id = IDa
     AND ind2.Id = IDb
 CREATE (ind1)-[rel:SAME_AS]->(ind2)<-[rel:SAME_AS]-(ind1)
+
+
+
