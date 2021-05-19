@@ -23,3 +23,10 @@ WHERE ind1.Id = ID1
     AND ind2.Id = ID2
 CREATE (ind1)-[rel:FAMILIA]->(ind2)
 SET rel.relacio = row.Relacio_Harmonitzada
+
+LOAD CSV WITH HEADERS FROM 'file:///same_as.csv' AS row
+MATCH (ind1:Individu), (ind2:Individu)
+WITH toInteger(row.Id_A) as IDa, toInteger(row.Id_B) as IDb, ind
+WHERE ind1.Id = IDa
+    AND ind2.Id = IDb
+CREATE (ind1)-[rel:SAME_AS]->(ind2)<-[rel:SAME_AS]-(ind1)
