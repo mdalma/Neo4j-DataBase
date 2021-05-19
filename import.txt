@@ -1,1 +1,19 @@
+LOAD CSV WITH HEADERS FROM 'file:///habitatges.csv' AS row
+CREATE (:Habitatge {municipi: row.municipi, id: toInteger(row.Id_Llar), any_padro: toInteger(row.any_padro), carrer: row.carrer, numero: toInteger(row.numero) })
+
+CREATE CONSTRAINT UniqueIdLlar ON (h:Habitatge) ASSERT h.id IS UNIQUE
+
+LOAD CSV WITH HEADERS FROM 'file:///individual.csv' AS row CREATE (:Individual {id: toInteger(row.Id), year: toInteger(row.Year), name: row.Name, surname: row.surname, second_surname: row.second_surname})
+
+CREATE CONSTRAINT UNIQUE UniqueNameYear ON (ind:Individual) ind.name, ind.surname, ind.year IS NODE KEY
+
+LOAD CSV WITH HEADERS FROM 'file:///viu.csv' AS row
+MATCH (ind:Individu), (h:Habitatge)
+WITH toInteger(row.IND) as IndId, toInteger(row.HOUSE_ID) as HouseId, toInteger(row.Year) as year, ind, h, row
+WHERE IndId = ind.id
+    AND row.Location = h.Municipi
+    AND year = row.Year
+    AND HouseIdD = h.Id_Llar
+CREATE (ind)-[:VIU]->(h)
+
 
