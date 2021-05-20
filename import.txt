@@ -1,13 +1,13 @@
-MATCH (n:Habitatge) DELETE n;
-MATCH (n:Individual) DELETE n;
+MATCH (n:Habitatge) DETACH DELETE (n);
+MATCH (n:Individual) DETACH DELETE (n);
 DROP CONSTRAINT UniqueIdLlar IF EXISTS;
 DROP CONSTRAINT UniqueNameYear IF EXISTS;
 
 LOAD CSV WITH HEADERS FROM 'file:///habitatges.csv' AS row
 WITH row WHERE row.Id_Llar IS NOT NULL AND row.Any_padro IS NOT NULL AND row.Municipi IS NOT NULL
-CREATE (:Habitatge {municipi: row.Municipi, id: toInteger(row.Id_Llar), any_padro: toInteger(row.Any_padro), carrer: row.Carrer, numero: toInteger(row.Numero) });
+CREATE (:Habitatge {municipi: row.Municipi, id_llar: toInteger(row.Id_Llar), any_padro: toInteger(row.Any_padro), carrer: row.Carrer, numero: toInteger(row.Numero) });
 
-CREATE CONSTRAINT UniqueIdLlar ON (h:Habitatge) ASSERT (h.id, h.any_padro, h.municipi) IS NODE KEY;
+CREATE CONSTRAINT UniqueIdLlar ON (h:Habitatge) ASSERT (h.id_llar, h.any_padro, h.municipi) IS NODE KEY;
 
 LOAD CSV WITH HEADERS FROM 'file:///individual.csv' AS row 
 WITH row WHERE row.Id IS NOT NULL
@@ -16,24 +16,22 @@ CREATE (:Individual {id: toInteger(row.Id), year: toInteger(row.Year), name: row
 CREATE CONSTRAINT UniqueNameYear ON (ind:Individual) ASSERT (ind.id) IS NODE KEY;
 
 LOAD CSV WITH HEADERS FROM 'file:///viu.csv' AS row
-MATCH (ind:Individu), (h:Habitatge)
+MATCH (ind:Individual), (h:Habitatge)
 WHERE toInteger(row.IND) = ind.id
-    AND row.Location = h.Municipi
+    AND row.Location = h.municipi
     AND toInteger(row.Year) = ind.year
-    AND toInteger(row.HOUSE_ID) = h.Id_Llar
+    AND toInteger(row.HOUSE_ID) = h.id_llar
 CREATE (ind)-[:VIU]->(h);
 
 LOAD CSV WITH HEADERS FROM 'file:///familia.csv' AS row
-MATCH (ind1:Individu), (ind2:Individu)
-WHERE ind1.Id = toInteger(row.ID_1)
-    AND ind2.Id = toInteger(row.ID_2)
+MATCH (ind1:Individual), (ind2:Individual)
+WHERE ind1.id = toInteger(row.ID_1)
+    AND ind2.id = toInteger(row.ID_2)
 CREATE (ind1)-[rel:FAMILIA]->(ind2)
 SET rel.relacio = row.Relacio_Harmonitzada;
 
 LOAD CSV WITH HEADERS FROM 'file:///same_as.csv' AS row
-MATCH (ind1:Individu), (ind2:Individu)
-WHERE ind1.Id = toInteger(row.Id_A)
-    AND ind2.Id = toInteger(row.Id_B)
+MATCH (ind1:Individual), (ind2:Individual)
+WHERE ind1.id = toInteger(row.Id_A)
+    AND ind2.id = toInteger(row.Id_B)
 CREATE (ind1)-[:SAME_AS]->(ind2);
-
-
