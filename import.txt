@@ -4,8 +4,8 @@ DROP CONSTRAINT UniqueIdLlar IF EXISTS;
 DROP CONSTRAINT UniqueNameYear IF EXISTS;
 
 LOAD CSV WITH HEADERS FROM 'file:///habitatges.csv' AS row
-WITH row WHERE row.Id_Llar IS NOT NULL AND row.Any_padro IS NOT NULL AND row.Municipi IS NOT NULL
-CREATE (:Habitatge {municipi: row.Municipi, id_llar: toInteger(row.Id_Llar), any_padro: toInteger(row.Any_padro), carrer: row.Carrer, numero: toInteger(row.Numero) });
+WITH row WHERE row.Id_Llar IS NOT NULL AND row.Any_Padro IS NOT NULL AND row.Municipi IS NOT NULL
+CREATE (:Habitatge {municipi: row.Municipi, id_llar: toInteger(row.Id_Llar), any_padro: toInteger(row.Any_Padro), carrer: row.Carrer, numero: toInteger(row.Numero) });
 
 CREATE CONSTRAINT UniqueIdLlar ON (h:Habitatge) ASSERT (h.id_llar, h.any_padro, h.municipi) IS NODE KEY;
 
@@ -29,6 +29,14 @@ WHERE ind1.id = toInteger(row.ID_1)
     AND ind2.id = toInteger(row.ID_2)
 CREATE (ind1)-[rel:FAMILIA]->(ind2)
 SET rel.relacio = row.Relacio_Harmonitzada;
+
+LOAD CSV WITH HEADERS FROM 'file:///same_as.csv' AS row
+MATCH (ind1:Individual), (ind2:Individual)
+WHERE ind1.id = toInteger(row.Id_A)
+    AND ind2.id = toInteger(row.Id_B)
+CREATE (ind1)-[:SAME_AS]->(ind2);
+
+
 
 LOAD CSV WITH HEADERS FROM 'file:///same_as.csv' AS row
 MATCH (ind1:Individual), (ind2:Individual)
