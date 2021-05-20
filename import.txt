@@ -1,17 +1,17 @@
 MATCH (n:Habitatge) DELETE n;
-MATCH (n:Individu) DELETE n;
+MATCH (n:Individual) DELETE n;
 DROP CONSTRAINT UniqueIdLlar IF EXISTS;
 DROP CONSTRAINT UniqueNameYear IF EXISTS;
 
 LOAD CSV WITH HEADERS FROM 'file:///habitatges.csv' AS row
 WITH row WHERE row.Id_Llar IS NOT NULL AND row.Any_padro IS NOT NULL AND row.Municipi IS NOT NULL
-CREATE (:Habitatge {municipi: row.Municipi, id: toInteger(row.Id_Llar), any_padro: toInteger(row.Any_padro), carrer: row.carrer, numero: toInteger(row.Numero) });
+CREATE (:Habitatge {municipi: row.Municipi, id: toInteger(row.Id_Llar), any_padro: toInteger(row.Any_padro), carrer: row.Carrer, numero: toInteger(row.Numero) });
 
 CREATE CONSTRAINT UniqueIdLlar ON (h:Habitatge) ASSERT (h.id, h.any_padro, h.municipi) IS NODE KEY;
 
 LOAD CSV WITH HEADERS FROM 'file:///individual.csv' AS row 
 WITH row WHERE row.Id IS NOT NULL
-CREATE (:Individual {id: toInteger(row.Id), year: toInteger(row.Year), name: row.Name, surname: row.surname, second_surname: row.second_surname});
+CREATE (:Individual {id: toInteger(row.Id), year: toInteger(row.Year), name: row.name, surname: row.surname, second_surname: row.second_surname});
 
 CREATE CONSTRAINT UniqueNameYear ON (ind:Individual) ASSERT (ind.id) IS NODE KEY;
 
@@ -35,4 +35,5 @@ MATCH (ind1:Individu), (ind2:Individu)
 WHERE ind1.Id = toInteger(row.Id_A)
     AND ind2.Id = toInteger(row.Id_B)
 CREATE (ind1)-[:SAME_AS]->(ind2);
+
 
