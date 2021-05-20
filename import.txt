@@ -1,35 +1,35 @@
+DROP CONSTRAINT UniqueIdLlar IF EXISTS;
+DROP CONSTRAINT UniqueNameYear IF EXISTS;
+
 LOAD CSV WITH HEADERS FROM 'file:///habitatges.csv' AS row
-CREATE (:Habitatge {municipi: row.municipi, id: toInteger(row.Id_Llar), any_padro: toInteger(row.any_padro), carrer: row.carrer, numero: toInteger(row.numero) })
+CREATE (:Habitatge {municipi: row.municipi, id: toInteger(row.Id_Llar), any_padro: toInteger(row.any_padro), carrer: row.carrer, numero: toInteger(row.numero) });
 
-CREATE CONSTRAINT UniqueIdLlar ON (h:Habitatge) ASSERT h.id IS UNIQUE
+CREATE CONSTRAINT UniqueIdLlar ON (h:Habitatge) ASSERT (h.id, h.any_padro, h.municipi) IS NODE KEY;
 
-LOAD CSV WITH HEADERS FROM 'file:///individual.csv' AS row CREATE (:Individual {id: toInteger(row.Id), year: toInteger(row.Year), name: row.Name, surname: row.surname, second_surname: row.second_surname})
+LOAD CSV WITH HEADERS FROM 'file:///individual.csv' AS row CREATE (:Individual {id: toInteger(row.Id), year: toInteger(row.Year), name: row.Name, surname: row.surname, second_surname: row.second_surname});
 
-CREATE CONSTRAINT UNIQUE UniqueNameYear ON (ind:Individual) ind.name, ind.surname, ind.year IS NODE KEY
+CREATE CONSTRAINT UniqueNameYear ON (ind:Individual) ASSERT (ind.name, ind.surname, ind.year) IS NODE KEY;
 
 LOAD CSV WITH HEADERS FROM 'file:///viu.csv' AS row
 MATCH (ind:Individu), (h:Habitatge)
-WITH toInteger(row.IND) as IndId, toInteger(row.HOUSE_ID) as HouseId, toInteger(row.Year) as year, ind, h, row
-WHERE IndId = ind.id
+WHERE toInteger(row.IND) = ind.id
     AND row.Location = h.Municipi
-    AND year = row.Year
-    AND HouseIdD = h.Id_Llar
-CREATE (ind)-[:VIU]->(h)
+    AND toInteger(row.Year) = ind.year
+    AND toInteger(row.HOUSE_ID) = h.Id_Llar
+CREATE (ind)-[:VIU]->(h);
 
 LOAD CSV WITH HEADERS FROM 'file:///familia.csv' AS row
 MATCH (ind1:Individu), (ind2:Individu)
-WITH toInteger(row.ID_1) as ID1, toInteger(row.ID_2) as ID2, ind
-WHERE ind1.Id = ID1
-    AND ind2.Id = ID2
+WHERE ind1.Id = toInteger(row.ID_1)
+    AND ind2.Id = toInteger(row.ID_2)
 CREATE (ind1)-[rel:FAMILIA]->(ind2)
-SET rel.relacio = row.Relacio_Harmonitzada
+SET rel.relacio = row.Relacio_Harmonitzada;
 
 LOAD CSV WITH HEADERS FROM 'file:///same_as.csv' AS row
 MATCH (ind1:Individu), (ind2:Individu)
-WITH toInteger(row.Id_A) as IDa, toInteger(row.Id_B) as IDb, ind
-WHERE ind1.Id = IDa
-    AND ind2.Id = IDb
-CREATE (ind1)-[rel:SAME_AS]->(ind2)<-[rel:SAME_AS]-(ind1)
+WHERE ind1.Id = toInteger(row.Id_A)
+    AND ind2.Id = toInteger(row.Id_B)
+CREATE (ind1)-[:SAME_AS]->(ind2);
 
 
 
