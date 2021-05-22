@@ -1,1 +1,17 @@
 # Exercici 2
+
+# Exercici 1 (el count retorna un numero de més (337 hauría de ser 336).
+MATCH (ind:Individual)-[:VIU]->(p:Habitatge)
+WHERE p.municipi = 'CR'
+RETURN count(ind.name) as `Número Habitants`, collect(DISTINCT ind.name) as `Llista noms`
+
+# Exercici 2
+# Exercici 3
+# Exercici 4
+
+
+# Exercici 5 (OK)
+MATCH (ind1:Individual)-[rel]-(ind2:Individual)
+WHERE toLower(ind1.name) = 'antonio' AND toLower(ind1.surname) = 'farran'
+RETURN ind2.name as `Nom`, ind2.surname as `Cognom1`, ind2.second_surname as `Cognom2`, type(rel) as `Tipus`
+ORDER BY ind2.name
