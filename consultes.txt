@@ -15,3 +15,15 @@ MATCH (ind1:Individual)-[rel]-(ind2:Individual)
 WHERE toLower(ind1.name) = 'antonio' AND toLower(ind1.surname) = 'farran'
 RETURN ind2.name as `Nom`, ind2.surname as `Cognom1`, ind2.second_surname as `Cognom2`, type(rel) as `Tipus`
 ORDER BY ind2.name
+
+# Exercici 9 (NO ACABADA)
+MATCH (ind1:Individual)-[rel:FAMILIA]->(ind2:Individual), (p:Habitatge)
+WHERE p.any_padro = 1881 AND p.municipi = 'SFLL' AND rel.relacio = 'fill'
+RETURN count(distinct ind1) as `total_fills`, count(distinct p) as `num_llars`
+
+# Exercici 10 (NIDEA)
+MATCH (ind:Individual)-[:VIU]->(p:Habitatge)
+WHERE p.municipi = 'SFLL' 
+UNWIND p.any_padro AS any_padro
+WITH DISTINCT any_padro, p.carrer as carrer
+RETURN DISTINCT any_padro, carrer
