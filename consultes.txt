@@ -11,7 +11,7 @@ WHERE h.any_padro < 1840 AND h.municipi = 'SFLL'
 RETURN DISTINCT h.any_padro as `Any del padró`, collect(distinct(h.id_llar))
 ORDER BY h.any_padro
 
-# Exercici 3
+# Exercici 3 (crec que ok)
 a) En forma de graf
 MATCH (i1:Individual{name:"rafel",surname:"marti",second_surname:"nan"})-[:VIU]->(h:Habitatge)<-[:VIU]-(i2:Individual)
 WHERE h.any_padro=1838 AND h.municipi="SFLL"
@@ -34,7 +34,10 @@ ORDER BY ind2.name
 MATCH(p:Individual)-[r:FAMILIA]-> (:Individual) 
 RETURN collect(distinct(r.relacio))
 
-#Exercici 7
+#Exercici 7 (no se segur si esta be)
+MATCH (h1:Habitatge{municipi:"SFLL"}), (h2:Habitatge{municipi:"SFLL"})
+WHERE h1.carrer=h2.carrer AND h1.numero=h2.numero
+RETURN h1.carrer, h1.numero, count(h1.carrer) as total_habs, collect(distinct(h1.any_padro)), collect(distinct(h1.id_llar)) order by total_habs desc limit 10
 
 #Exercici 8 (no està bé)
 MATCH(i:Individual)-[rel:FAMILIA]->(i2:Individual), (h:Habitatge{municipi:'CR'}) WITH collect(i.name) as persona, count(i2.name) as num_fills, i, h WHERE rel.relacio='hijo' AND num_fills>3 RETURN i.name, i.surname, i.second_surname, size(i2) ORDER BY size(i2) DESC, LIMIT(20)
