@@ -22,6 +22,10 @@ WHERE toLower(ind1.name) = 'antonio' AND toLower(ind1.surname) = 'farran'
 RETURN ind2.name as `Nom`, ind2.surname as `Cognom1`, ind2.second_surname as `Cognom2`, type(rel) as `Tipus`
 ORDER BY ind2.name
 
+#Exercici 6 (OK)
+MATCH(p:Individual)-[r:FAMILIA]-> (:Individual) 
+RETURN collect(distinct(r.relacio))
+
 # Exercici 9 (NO ACABADA)
 MATCH (ind1:Individual)-[rel:FAMILIA]->(ind2:Individual), (p:Habitatge)
 WHERE p.any_padro = 1881 AND p.municipi = 'SFLL' AND rel.relacio = 'fill'
