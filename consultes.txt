@@ -28,8 +28,8 @@ RETURN collect(distinct(r.relacio))
 
 #Exercici 7
 
-#Exercici 8
-
+#Exercici 8 (no està bé)
+MATCH(i:Individual)-[rel:FAMILIA]->(i2:Individual), (h:Habitatge{municipi:'CR'}) WITH collect(i.name) as persona, count(i2.name) as num_fills, i, h WHERE rel.relacio='hijo' AND num_fills>3 RETURN i.name, i.surname, i.second_surname, size(i2) ORDER BY size(i2) DESC, LIMIT(20)
 
 # Exercici 9 (NO ACABADA)
 MATCH (ind1:Individual)-[rel:FAMILIA]->(ind2:Individual), (p:Habitatge)
