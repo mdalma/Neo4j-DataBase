@@ -33,8 +33,8 @@ RETURN distinct ind2.name as `Nom`, ind2.surname as `Cognom1`, ind2.second_surna
 ORDER BY ind2.name
 
 #Exercici 6 (OK)
-MATCH(p:Individual)-[r:FAMILIA]-> (:Individual) 
-RETURN collect(distinct(r.relacio)) as `tipus de relacions`
+MATCH(p:Individual)-[r:FAMILIA]-> (:Individual)
+RETURN DISTINCT(r.relacio) as `Relacio Familiars`
 
 #Exercici 7 (no se segur si esta be)
 MATCH (h1:Habitatge{municipi:"SFLL"}), (h2:Habitatge{municipi:"SFLL"})
