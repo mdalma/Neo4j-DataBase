@@ -33,7 +33,7 @@ ORDER BY ind2.name
 
 #Exercici 6 (OK)
 MATCH(p:Individual)-[r:FAMILIA]-> (:Individual) 
-RETURN collect(distinct(r.relacio))
+RETURN collect(distinct(r.relacio)) as `tipus de relacions`
 
 #Exercici 7 (no se segur si esta be)
 MATCH (h1:Habitatge{municipi:"SFLL"}), (h2:Habitatge{municipi:"SFLL"})
