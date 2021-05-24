@@ -1,9 +1,9 @@
 # Exercici 2
 
-# Exercici 1 (el count retorna un numero de més (337 hauría de ser 336).
+# Exercici 1 (OK)
 MATCH (ind:Individual)-[:VIU]->(p:Habitatge)
-WHERE p.municipi = 'CR'
-RETURN count(ind.name) as `Número Habitants`, collect(DISTINCT ind.name) as `Llista noms`
+WHERE p.municipi = 'CR' and ind.surname<>'nan'
+RETURN count(ind.surname) as `Número Habitants`, collect(DISTINCT ind.surname) as `Llista noms`
 
 # Exercici 2 (OK)
 MATCH (h:Habitatge)<-[:VIU]-(p:Individual)
