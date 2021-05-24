@@ -8,7 +8,7 @@ RETURN count(ind.name) as `Número Habitants`, collect(DISTINCT ind.name) as `Ll
 # Exercici 2 (OK)
 MATCH (h:Habitatge)<-[:VIU]-(p:Individual)
 WHERE h.any_padro < 1840 AND h.municipi = 'SFLL'
-RETURN DISTINCT h.any_padro as `Any del padró`, collect(distinct(h.id_llar))
+RETURN DISTINCT h.any_padro as `Any del padró`, collect(distinct(h.id_llar)) as `id de la llar`
 ORDER BY h.any_padro
 
 # Exercici 3 (crec que ok)
