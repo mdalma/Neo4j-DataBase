@@ -11,15 +11,16 @@ WHERE h.any_padro < 1840 AND h.municipi = 'SFLL'
 RETURN DISTINCT h.any_padro as `Any del padró`, collect(distinct(h.id_llar)) as `id de la llar`
 ORDER BY h.any_padro
 
-# Exercici 3 (crec que ok)
-a) En forma de graf
-MATCH (i1:Individual{name:"rafel",surname:"marti"})-[:VIU]->(h:Habitatge)<-[:VIU]-(i2:Individual), (i1)-[:FAMILIA]->(i2)
-WHERE h.any_padro=1838 AND h.municipi="SFLL"
-RETURN i1,i2
-b) En forma de llista
-MATCH (i1:Individual{name:"rafel",surname:"marti"})-[:VIU]->(h:Habitatge)<-[:VIU]-(i2:Individual), (i1)-[:FAMILIA]->(i2)
-WHERE h.any_padro=1838 AND h.municipi="SFLL"
-RETURN collect(i2.name)
+# Exercici 3 (OK)
+a) En forma de graf (OK)
+MATCH (ind1:Individual {name:"rafel", surname:"marti"})-[:VIU]->(h:Habitatge)<-[:VIU]-(ind2:Individual), (ind1)-[:FAMILIA]->(ind2)
+WHERE h.any_padro = 1838 AND h.municipi = "SFLL"
+RETURN ind1, ind2
+
+b) En forma de llista (OK)
+MATCH (ind1:Individual {name:"rafel", surname:"marti"})-[:VIU]->(h:Habitatge)<-[:VIU]-(ind2:Individual), (ind1)-[:FAMILIA]->(ind2)
+WHERE h.any_padro = 1838 AND h.municipi="SFLL"
+RETURN ind1.name as `nom`, collect(ind2.name) as `convivents`
 
 # Exercici 4 (OK)
 MATCH path= ((i:Individual{name:'miguel', surname:'ballester'})-[:SAME_AS]-(i2:Individual)) 
