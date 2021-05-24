@@ -21,7 +21,7 @@ MATCH (i1:Individual{name:"rafel",surname:"marti",second_surname:"nan"})-[:VIU]-
 WHERE h.any_padro=1838 AND h.municipi="SFLL"
 RETURN collect(distinct(i2.name))
 
-# Exercici 4 (DA REPET:()
+# Exercici 4 (OK)
 MATCH path= ((i:Individual{name:'miguel', surname:'ballester'})-[:SAME_AS]-(i2:Individual)) 
 RETURN path
 
