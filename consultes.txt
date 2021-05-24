@@ -45,9 +45,9 @@ RETURN h1.carrer, h1.numero, count(h1.carrer) as total_habs, collect(distinct(h1
 MATCH(i:Individual)-[rel:FAMILIA]->(i2:Individual), (h:Habitatge{municipi:'CR'}) WITH collect(i.name) as persona, count(i2.name) as num_fills, i, h WHERE rel.relacio='hijo' AND num_fills>3 RETURN i.name, i.surname, i.second_surname, size(i2) ORDER BY size(i2) DESC, LIMIT(20)
 
 # Exercici 9 (NO ACABADA)
-MATCH (ind1:Individual)-[rel:FAMILIA]->(ind2:Individual), (p:Habitatge)
-WHERE p.any_padro = 1881 AND p.municipi = 'SFLL' AND rel.relacio = 'fill'
-RETURN count(distinct ind1) as `total_fills`, count(distinct p) as `num_llars`
+MATCH (ind1:Individual)-[r:FAMILIA]->(ind2:Individual)-[:VIU]->(p:Habitatge)<-[:VIU]-(ind1)
+WHERE p.any_padro = 1881 AND p.municipi = 'SFLL' AND r.relacio IN ['fill', 'filla'] 
+RETURN count(distinct ind1) as `total_fills`, count(distinct p) as `num_llars`, count(distinct ind1)/count(distinct p) as `mitjana`
 
 # Exercici 10 (NIDEA)
 MATCH (ind:Individual)-[:VIU]->(p:Habitatge)
