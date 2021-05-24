@@ -13,13 +13,13 @@ ORDER BY h.any_padro
 
 # Exercici 3 (crec que ok)
 a) En forma de graf
-MATCH (i1:Individual{name:"rafel",surname:"marti",second_surname:"nan"})-[:VIU]->(h:Habitatge)<-[:VIU]-(i2:Individual)
+MATCH (i1:Individual{name:"rafel",surname:"marti"})-[:VIU]->(h:Habitatge)<-[:VIU]-(i2:Individual), (i1)-[:FAMILIA]->(i2)
 WHERE h.any_padro=1838 AND h.municipi="SFLL"
-RETURN i2
+RETURN i1,i2
 b) En forma de llista
-MATCH (i1:Individual{name:"rafel",surname:"marti",second_surname:"nan"})-[:VIU]->(h:Habitatge)<-[:VIU]-(i2:Individual)
+MATCH (i1:Individual{name:"rafel",surname:"marti"})-[:VIU]->(h:Habitatge)<-[:VIU]-(i2:Individual), (i1)-[:FAMILIA]->(i2)
 WHERE h.any_padro=1838 AND h.municipi="SFLL"
-RETURN collect(distinct(i2.name))
+RETURN collect(i2.name)
 
 # Exercici 4 (OK)
 MATCH path= ((i:Individual{name:'miguel', surname:'ballester'})-[:SAME_AS]-(i2:Individual)) 
