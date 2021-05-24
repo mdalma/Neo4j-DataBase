@@ -44,7 +44,7 @@ RETURN h1.carrer, h1.numero, count(h1.carrer) as total_habs, collect(distinct(h1
 #Exercici 8 (ok)
 MATCH (i1:Individual)-[rel:FAMILIA]->(i2:Individual), (i1)-[:VIU]->(:Habitatge{municipi:"CR"})
 WHERE rel.relacio in ["fill","filla"]
-RETURN i1.name, i1.surname, i1.second_surname, count(i2) order by count(i2) desc
+RETURN i1.name, i1.surname, i1.second_surname, count(i2) order by count(i2) desc limit 20
 
 # Exercici 9 (NO ACABADA)
 MATCH (ind1:Individual)-[r:FAMILIA]->(ind2:Individual)-[:VIU]->(p:Habitatge)<-[:VIU]-(ind1)
