@@ -36,12 +36,14 @@ ORDER BY ind2.name
 MATCH(p:Individual)-[r:FAMILIA]-> (:Individual)
 RETURN DISTINCT(r.relacio) as `Relacio Familiars`
 
-#Exercici 7 (no se segur si esta be)
-MATCH (h1:Habitatge{municipi:"SFLL"}), (h2:Habitatge{municipi:"SFLL"})
-WHERE h1.carrer=h2.carrer AND h1.numero=h2.numero
-RETURN h1.carrer, h1.numero, count(distinct(h1)) as total_habs, collect(distinct(h1.any_padro)), collect(distinct(h1.id_llar)) order by total_habs desc limit 10
+#Exercici 7 (OK)
+MATCH (h1:Habitatge {municipi:"SFLL"}), (h2:Habitatge {municipi:"SFLL"})
+WHERE h1.carrer = h2.carrer AND h1.numero = h2.numero
+RETURN h1.carrer, h1.numero, count(distinct(h1)) as total_habs, collect(distinct(h1.any_padro)), collect(distinct(h1.id_llar)) 
+ORDER BY total_habs DESC
+LIMIT 10
 
-#Exercici 8 (ok)
+#Exercici 8 (OK)
 MATCH (i1:Individual)-[rel:FAMILIA]->(i2:Individual), (i1)-[:VIU]->(:Habitatge{municipi:"CR"})
 WHERE rel.relacio in ["fill","filla"]
 RETURN i1.name, i1.surname, i1.second_surname, count(i2) order by count(i2) desc limit 20
