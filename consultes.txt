@@ -52,8 +52,7 @@ WHERE p.any_padro = 1881 AND p.municipi = 'SFLL' AND r.relacio IN ['fill', 'fill
 RETURN count(distinct ind1) as `total_fills`, count(distinct p) as `num_llars`, 100*count(distinct ind1)/count(distinct p) as `mitjana`
 
 # Exercici 10 (NIDEA)
-MATCH (ind:Individual)-[:VIU]->(p:Habitatge)
-WHERE p.municipi = 'SFLL' 
-UNWIND p.any_padro AS any_padro
-WITH DISTINCT any_padro, p.carrer as carrer
-RETURN DISTINCT any_padro, carrer
+MATCH (i:Individual)-[:VIU]->(h:Habitatge) 
+WITH h.any_padro as año, h.carrer as carrer, count(i) as individu
+WITH año, min(individu) as minim
+MATCH (i)-[:VIU]->(h) WHERE h.any_padro=año and WITH count(i) as individu2
