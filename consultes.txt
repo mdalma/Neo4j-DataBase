@@ -54,7 +54,12 @@ WHERE p.any_padro = 1881 AND p.municipi = 'SFLL' AND r.relacio IN ['fill', 'fill
 RETURN count(distinct ind1) as `total_fills`, count(distinct p) as `num_llars`, round(count(distinct ind1)/toFloat(count(distinct p)), 2) as `mitjana`
 
 # Exercici 10 (NIDEA)
-MATCH (i:Individual)-[:VIU]->(h:Habitatge) 
+MATCH (i:Individual)-[:VIU]->(h:Habitatge)
 WITH h.any_padro as año, h.carrer as carrer, count(i) as individu
 WITH año, min(individu) as minim
-MATCH (i)-[:VIU]->(h) WHERE h.any_padro=año and WITH count(i) as individu2
+MATCH (i)-[:VIU]->(h)
+WHERE h.any_padro = año
+WITH count(i) as tot_habitants, minim, h
+WHERE tot_habitants = minim and h.municipi = 'SFLL'
+RETURN DISTINCT h.any_padro as `Any`, h.carrer as `Carrer`, tot_habitants as `Total habitants`
+ORDER BY h.any_padro ASC
