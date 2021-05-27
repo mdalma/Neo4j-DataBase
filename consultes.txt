@@ -49,7 +49,7 @@ RETURN i1.name, i1.surname, i1.second_surname, count(i2) order by count(i2) desc
 # Exercici 9 (NO ACABADA)
 MATCH (ind1:Individual)-[r:FAMILIA]->(ind2:Individual)-[:VIU]->(p:Habitatge)<-[:VIU]-(ind1)
 WHERE p.any_padro = 1881 AND p.municipi = 'SFLL' AND r.relacio IN ['fill', 'filla'] 
-RETURN count(distinct ind1) as `total_fills`, count(distinct p) as `num_llars`, 100*count(distinct ind1)/count(distinct p) as `mitjana`
+RETURN count(distinct ind1) as `total_fills`, count(distinct p) as `num_llars`, count(distinct ind1)/toFloat(count(distinct p)) as `mitjana`
 
 # Exercici 10 (NIDEA)
 MATCH (i:Individual)-[:VIU]->(h:Habitatge) 
