@@ -63,3 +63,8 @@ WITH count(i) as tot_habitants, minim, h
 WHERE tot_habitants = minim and h.municipi = 'SFLL'
 RETURN DISTINCT h.any_padro as `Any`, h.carrer as `Carrer`, tot_habitants as `Total habitants`
 ORDER BY h.any_padro ASC
+
+MATCH (I)-[:VIU]->(h:Habitatge {municipi:'SFLL'})
+WITH h, count(I) as num_habitants
+RETURN h.any_padro as year, collect((h.carrer))[..1] as street, min(num_habitants) as habitants
+ORDER BY year ASC, habitants ASC, street ASC
