@@ -53,14 +53,8 @@ MATCH (ind1:Individual)-[r:FAMILIA]->(ind2:Individual)-[:VIU]->(p:Habitatge)<-[:
 WHERE p.any_padro = 1881 AND p.municipi = 'SFLL' AND r.relacio IN ['fill', 'filla'] 
 RETURN count(distinct ind1) as `total_fills`, count(distinct p) as `num_llars`, round(count(distinct ind1)/toFloat(count(distinct p)), 2) as `mitjana`
 
-# Exercici 10 (NIDEA)
+# Exercici 10 (OK)
 MATCH (I:Individual)-[:VIU]->(h:Habitatge {municipi:'SFLL'})
 WITH h, count(I) as num_habitants
 RETURN h.any_padro as year, collect((h.carrer))[..1] as street, min(num_habitants) as habitants
 ORDER BY year ASC, habitants ASC, street ASC
-
-(segons el profe ¿?¿?¿?)
-MATCH (i:Individual)-[r:VIU]->(h:Habitatge) WHERE h.municipi='SFLL' WITH h.any_padro as año, h.carrer as carrer, count(h) as num_hab WITH año, min(num_hab) as min_hab 
-MATCH (i)-[r:VIU]->(h) WHERE h.municipi='SFLL' AND h.any_padro = año WITH h.any_padro as any_padro, h.carrer as carrer, count(h) as num_hab, min_hab
-WHERE min_hab = num_hab
-RETURN min_hab, any_padro, carrer
