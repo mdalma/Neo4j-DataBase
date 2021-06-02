@@ -46,7 +46,9 @@ LIMIT 10
 #Exercici 8 (OK)
 MATCH (i1:Individual)-[rel:FAMILIA]->(i2:Individual), (i1)-[:VIU]->(:Habitatge{municipi:"CR"})
 WHERE rel.relacio in ["fill","filla"]
-RETURN i1.name, i1.surname, i1.second_surname, count(i2) order by count(i2) desc limit 20
+RETURN i1.name as `nom`, i1.surname as `1r cognom`, i1.second_surname as `2n cognom`, count(i2) as `total`
+ORDER BY total DESC 
+LIMIT 20
 
 # Exercici 9 (OK)
 MATCH (ind1:Individual)-[r:FAMILIA]->(ind2:Individual)-[:VIU]->(p:Habitatge)<-[:VIU]-(ind1)
