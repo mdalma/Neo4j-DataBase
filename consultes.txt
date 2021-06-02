@@ -58,3 +58,8 @@ MATCH (I:Individual)-[:VIU]->(h:Habitatge {municipi:'SFLL'})
 WITH h, count(I) as num_habitants
 RETURN h.any_padro as year, collect((h.carrer))[..1] as street, min(num_habitants) as habitants
 ORDER BY year ASC, habitants ASC, street ASC
+
+
+
+## Exercici 3
+
