@@ -80,3 +80,4 @@ CALL gds.nodeSimilarity.write('Ex3_b',{
   })
 YIELD nodesCompared, relationshipsWritten
 
+CALL gds.graph.create('Ex3_b2', ['Habitatge','Individual'], ['VIU', 'FAMILIA', 'MATEIX_HAB'])
