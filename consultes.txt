@@ -70,5 +70,13 @@ MATCH (n)
 WHERE id(n) in nodes 
 RETURN mida as mida_component, count(n) as nombre_components
 
-
+# Execcici 3b
+CALL gds.graph.create('Ex3_b', ['Habitatges','Individual'],'SAME_AS')
+CALL gds.nodeSimilarity.write('Ex3_b',{
+  writeRelationshipType:'MATEIX_HAB',
+  writeProperty:'score',
+  similarityCutoff:0.45,
+  topK:5
+  })
+YIELD nodesCompared, relationshipsWritten
 
