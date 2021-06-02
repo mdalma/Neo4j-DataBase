@@ -37,16 +37,3 @@ WHERE ind1.id = toInteger(row.Id_A)
 CREATE (ind1)-[:SAME_AS]->(ind2);
 
 
-LOAD CSV WITH HEADERS FROM 'file:///same_as.csv' AS row
-MATCH (ind1:Individual), (ind2:Individual)
-WHERE ind1.id = toInteger(row.Id_A)
-    AND ind2.id = toInteger(row.Id_B)
-CREATE (ind1)-[:SAME_AS]->(ind2);
-
-
-LOAD CSV WITH HEADERS FROM 'file:///same_as.csv' AS row
-MATCH (ind1:Individual), (ind2:Individual)
-WHERE ind1.id = toInteger(row.Id_A)
-    AND ind2.id = toInteger(row.Id_B)
-CREATE (ind1)-[:SAME_AS]->(ind2);
-
