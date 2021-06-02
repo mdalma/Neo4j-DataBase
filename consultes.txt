@@ -62,4 +62,13 @@ ORDER BY year ASC, habitants ASC, street ASC
 
 
 ## Exercici 3
+CALL gds.wcc.stream({nodeProjection:['Individual','Habitatge'], relationshipProjection: ['VIU']})
+YIELD nodeId, componentId
+WITH componentId, collect(nodeId) as nodes, size(collect(nodeId)) as mida 
+ORDER BY mida DESC
+MATCH (n)
+WHERE id(n) in nodes 
+RETURN mida as mida_component, count(n) as nombre_components
+
+
 
