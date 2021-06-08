@@ -63,7 +63,10 @@ ORDER BY year ASC, habitants ASC, street ASC
 
 
 
-## Exercici 3
+## Exercici 3a
+
+CALL gds.graph.create('Ex3_a2',['Individual', 'Habitatge'], 'VIU')
+
 CALL gds.wcc.stream({nodeProjection:['Individual','Habitatge'], relationshipProjection: ['VIU']})
 YIELD nodeId, componentId
 WITH componentId, collect(nodeId) as nodes, size(collect(nodeId)) as mida 
@@ -73,7 +76,16 @@ WHERE id(n) in nodes
 RETURN mida as mida_component, count(n) as nombre_components
 
 # Execcici 3b
-CALL gds.graph.create('Ex3_b', ['Habitatges','Individual'],'SAME_AS')
+
+MATCH (h:Habitatge),(h2:Habitatge)
+WHERE h.id_llar <> h2.id_llar 
+    AND h.numero=h2.numero 
+    AND h.municipi=h2.municipi 
+    AND h.carrer=h2.carrer
+MERGE (h)-[:MATEIX_HAB]->(h2)
+
+CALL gds.graph.create('Ex3_b',['Individual','Habitatge'],['VIU','FAMILIA','MATEIX_HAB'])
+
 CALL gds.nodeSimilarity.write('Ex3_b',{
   writeRelationshipType:'MATEIX_HAB',
   writeProperty:'score',
@@ -82,4 +94,3 @@ CALL gds.nodeSimilarity.write('Ex3_b',{
   })
 YIELD nodesCompared, relationshipsWritten
 
-CALL gds.graph.create('Ex3_b2', ['Habitatge','Individual'], ['VIU', 'FAMILIA', 'MATEIX_HAB'])
