@@ -63,7 +63,9 @@ ORDER BY year ASC, habitants ASC, street ASC
 
 
 
-## Exercici 3a
+## Exercici 3
+
+#Exercici 3a
 
 CALL gds.graph.create('Ex3_a2',['Individual', 'Habitatge'], 'VIU')
 
