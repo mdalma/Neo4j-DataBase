@@ -1,5 +1,5 @@
 # Neo4j - Grup-6  
-[![Generic badge](https://img.shields.io/badge/ESTAT-ACABAT-<COLOR>.svg)]
+![Generic badge](https://img.shields.io/badge/ESTAT-ACABAT-<COLOR>.svg)
 
 # Introducció Projecte II - BDnR 
 
