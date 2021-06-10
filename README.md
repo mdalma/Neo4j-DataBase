@@ -1,5 +1,5 @@
-# Neo4j - Grup-6  [![Generic badge](https://img.shields.io/badge/ESTAT-ACABAT-<COLOR>.svg)](https://shields.io/)  [![GitHub contributors](https://img.shields.io/github/contributors/Naereen/badges.svg)](https://GitHub.com/Naereen/badges/graphs/contributors/) [![Only 32 Kb](https://badge-size.herokuapp.com/Naereen/StrapDown.js/master/strapdown.min.js)](https://github.com/Naereen/StrapDown.js/blob/master/strapdown.min.js)
-
+# Neo4j - Grup-6  
+[![Generic badge](https://img.shields.io/badge/ESTAT-ACABAT-<COLOR>.svg)](https://shields.io/)  [![GitHub contributors](https://img.shields.io/github/contributors/Naereen/badges.svg)](https://GitHub.com/Naereen/badges/graphs/contributors/) [![Only 32 Kb](https://badge-size.herokuapp.com/Naereen/StrapDown.js/master/strapdown.min.js)](https://github.com/Naereen/StrapDown.js/blob/master/strapdown.min.js)
 
 # Introducció Projecte II - BDnR 
 
