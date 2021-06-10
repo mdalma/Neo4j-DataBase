@@ -25,6 +25,9 @@ CALL gds.graph.create('Ex3_b',['Individual','Habitatge'],['VIU','FAMILIA','MATEI
 
 CALL gds.nodeSimilarity.write('Ex3_b',{
   writeRelationshipType:'MATEIX_HAB',
+  writeProperty:'score',
+  similarityCutoff:0.45,
+  topK:5
   writeProperty:'score'
   })
 YIELD nodesCompared, relationshipsWritten
