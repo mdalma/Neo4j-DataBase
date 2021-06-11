@@ -1,5 +1,6 @@
 #Exercici 3a
 
+#Estudi de les components connexes
 CALL gds.graph.create('Ex3_a2',['Individual', 'Habitatge'], 'VIU')
 
 CALL gds.wcc.stream({nodeProjection:['Individual','Habitatge'], relationshipProjection: ['VIU']})
@@ -10,11 +11,34 @@ MATCH (n)
 WHERE id(n) in nodes 
 RETURN mida as mida_component, count(n) as nombre_components
 
+#Estudi del municipi amb més components connexes de cada any
+CALL gds.wcc.stream('Ex3_h')
+YIELD nodeId as individual, componentId
+WITH gds.util.asNode(individual) as node1, componentId
+WITH collect(node1) as allNodes, componentId, node1
+WHERE node1.municipi <> 'null'
+RETURN DISTINCT node1.any_padro as any_padro, node1.municipi as municipi, max(componentId) as compoennt_connexa
 
+
+#Estudi dels component connexes de mida 1
+CALL gds.graph.create('Ex3_prova3',['Individual'], 'FAMILIA')
+
+CALL gds.wcc.stream('Ex3_prova3')
+YIELD componentId, nodeId
+WITH componentId, collect(nodeId) as nodes,
+size(collect(nodeId)) as mida
+WHERE mida = 1
+MATCH (n)
+WHERE id(n) in nodes
+return n;
+
+
+#Anàlisis de les persones que porten més temps a la base de dades
 MATCH (p:Individual)-[:SAME_AS]-(q:Individual)
 WITH p {.name, .surname} as Nom, p.id as ID
 RETURN ID as `Person ID`, size(collect(Nom)) as Num, collect(Nom) as Noms
 ORDER BY Num DESC
+
 
 
 # Execici 3b
@@ -36,3 +60,6 @@ CALL gds.nodeSimilarity.write('Ex3_b',{
   writeProperty:'score'
   })
 YIELD nodesCompared, relationshipsWritten
+
+-----------------------------------------------------------
+
