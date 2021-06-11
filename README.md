@@ -10,7 +10,7 @@ subconjunt de dades de padrons.
 ### Integrants
 Miquel Monge Dalmau, 1565230
 Oriol Prat Font, 1565096
-
+Adriana Murillo Gonzalo, 1564419
 
 ## Descomposició de tasques 
 
