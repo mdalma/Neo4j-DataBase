@@ -6,6 +6,11 @@
 En aquest projecte es treballarà la càrrega de dades i les consultes en una base de dades
 de grafs (Neo4J) i es practicarà l’ús d’algorismes d’analítica de grafs a partir d’un
 subconjunt de dades de padrons.
+
+### Integrants
+Miquel Monge Dalmau, 1565230
+
+
 ## Descomposició de tasques 
 
 Per a desenvolupar el projecte hem fet ús del repositori de GitHub, on s’han mantingut i actualitzat tots els scripts, tenint sempre l'última versió d’aquell moment penjada, per a que tots els integrants del grup puguem treballar sobre les mateixes dades en les diferents tasques.
