@@ -31,3 +31,10 @@ CALL gds.nodeSimilarity.write('Ex3_b',{
   writeProperty:'score'
   })
 YIELD nodesCompared, relationshipsWritten
+
+-----------------------------------------------------------
+
+MATCH (p:Individual)-[:SAME_AS]-(q:Individual)
+WITH p {.name, .surname} as Nom, p.id as ID
+RETURN ID as `Person ID`, size(collect(Nom)) as Num, collect(Nom) as Noms
+ORDER BY Num DESC
