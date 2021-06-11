@@ -14,6 +14,8 @@ Oriol Prat Font, 1565096
 
 Adriana Murillo Gonzalo, 1564419
 
+Maria Barnils Sagués, 1570110
+
 ## Descomposició de tasques 
 
 Per a desenvolupar el projecte hem fet ús del repositori de GitHub, on s’han mantingut i actualitzat tots els scripts, tenint sempre l'última versió d’aquell moment penjada, per a que tots els integrants del grup puguem treballar sobre les mateixes dades en les diferents tasques.
