@@ -17,7 +17,7 @@ RETURN ID as `Person ID`, size(collect(Nom)) as Num, collect(Nom) as Noms
 ORDER BY Num DESC
 
 
-# Execcici 3b
+# Execici 3b
 
 MATCH (h:Habitatge),(h2:Habitatge)
 WHERE h.id_llar <> h2.id_llar 
