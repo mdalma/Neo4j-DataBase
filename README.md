@@ -8,13 +8,13 @@ de grafs (Neo4J) i es practicarà l’ús d’algorismes d’analítica de grafs
 subconjunt de dades de padrons.
 
 ### Integrants
--  Miquel Monge Dalmau, 1565230
+-  Miquel Monge Dalmau
 
--  Oriol Prat Font, 1565096
+-  Oriol Prat Font
 
--  Adriana Murillo Gonzalo, 1564419
+-  Adriana Murillo Gonzalo
 
--  Maria Barnils Sagués, 1570110
+-  Maria Barnils Sagués
 
 ## Descomposició de tasques 
 
